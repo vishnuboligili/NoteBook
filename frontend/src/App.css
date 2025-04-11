@@ -1,0 +1,97 @@
+.background_color {
+  background-color: #eaf7dd;
+}
+
+.box_color {
+  background: #d6efd8;
+}
+
+.box_shadow {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.button_gradient_color {
+  /* background: rgb(217, 237, 219);
+  background: linear-gradient(
+    65deg,
+    rgba(217, 237, 219, 1) 61%,
+    rgba(238, 255, 245, 1) 61%
+  ); */
+  background: rgb(255, 0, 78);
+  background: linear-gradient(
+    33deg,
+    rgba(255, 0, 78, 1) 53%,
+    rgba(249, 250, 119, 1) 91%
+  );
+}
+.background_gradient_color {
+  background: rgb(217, 237, 219);
+  background: linear-gradient(
+    65deg,
+    rgba(217, 237, 219, 1) 61%,
+    rgba(238, 255, 245, 1) 61%
+  );
+}
+/* ------------- This is for Navbar active links ------------ */
+a.active {
+  background-color: rgb(22 163 74);
+  color: white;
+}
+
+/* -------------------- This is For Notebook line Style  --------------  */
+.textContent {
+  margin-top: 5px;
+  width: 96%;
+  height: 87%;
+  border: none;
+  outline: none;
+  margin-bottom: 5px;
+  border-radius: 0 0 20px 20px;
+  padding: 8px 10px;
+  /* background-attachment: local; */
+  background-image: linear-gradient(to right, white 10px, transparent 10px),
+    linear-gradient(to left, white 10px, transparent 10px),
+    repeating-linear-gradient(
+      white,
+      white 30px,
+      #ccc 32px,
+      #ccc 31px,
+      white 31px
+    );
+  line-height: 31px;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0.5em;
+  cursor: pointer;
+}
+
+textarea::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px hwb(0 0% 100% / 0);
+  cursor: pointer;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: rgba(86, 88, 89, 0.467);
+  cursor: pointer;
+  /* outline: 1px solid slategrey; */
+}
+
+/* -------------- This is for text-overflow will add three dots at the end of the line ---------------- */
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.textContentHide {
+  margin-top: 5px;
+  width: 96%;
+  height: 87%;
+  border: none;
+  outline: none;
+  margin-bottom: 5px;
+  border-radius: 0 0 20px 20px;
+  padding: 8px 10px;
+  line-height: 31px;
+}
