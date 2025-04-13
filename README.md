@@ -27,7 +27,7 @@ Notebook is a secure, full-featured note-taking platform built with the MERN sta
 
 ### Clone the Repository
 ```bash
- git clone https://github.com/jabedalimollah/notebook.git
+ git clone https://github.com/AnilKumar171/Notebook.git
  cd notebook
 ```
 ### Backend Setup
