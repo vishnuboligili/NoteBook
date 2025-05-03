@@ -11,6 +11,7 @@ const apiRoutes = {
   findNotesURI: `${import.meta.env.VITE_APP_API_KEY}/notes/findnotes`,
   updateNotesURI: `${import.meta.env.VITE_APP_API_KEY}/notes/updatedata`,
   deleteNotesURI: `${import.meta.env.VITE_APP_API_KEY}/notes/deletedata`,
+  summarizeURI: `${import.meta.env.VITE_APP_API_KEY}/notes/summarize`,
 };
 
 // const apiRoutes = {

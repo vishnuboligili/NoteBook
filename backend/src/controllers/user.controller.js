@@ -7,42 +7,129 @@ import ApiResponse from "../utils/ApiResponse.js";
 import { Notes } from "../models/notes.model.js";
 
 //=================== Sign Up ===================
-const signup = asyncErrorHandler(async (req, res) => {
-  const getData = req.body;
-  const checkUserName = await User.findOne({ username: getData.username });
-  const checkEmail = await User.findOne({ email: getData.email });
+// const signup = asyncErrorHandler(async (req, res) => {
+//   const getData = req.body;
+//   const checkUserName = await User.findOne({ username: getData.username });
+//   const checkEmail = await User.findOne({ email: getData.email });
 
-  // ------------------ check duplicate username and email ------------------
-  if (checkUserName) {
-    // ------------------ throwing error in ApiError.js file ------------------
-    throw new ApiError(400, "error", "username already exists");
-  } else if (checkEmail) {
-    throw new ApiError(400, "error", "email already exists");
-  } else {
+//   // ------------------ check duplicate username and email ------------------
+//   if (checkUserName) {
+//     // ------------------ throwing error in ApiError.js file ------------------
+//     throw new ApiError(400, "error", "username already exists");
+//   } else if (checkEmail) {
+//     throw new ApiError(400, "error", "email already exists");
+//   } else {
+//     const newUser = new User(getData);
+//     const data = await newUser.save();
+
+//     const payload = {
+//       _id: data._id,
+//       name: data.name,
+//       username: data.username,
+//       email: data.email,
+//     };
+//     // -------------- Generate Token ----------------
+//     const token = generateToken(payload);
+
+//     // ------------- Password Remove ---------
+//     const userData = data.toObject();
+//     delete userData.password;
+   
+//     res.status(200).json(new ApiResponse(200, userData, token, "success"));
+//   }
+// });
+// const signup = asyncErrorHandler(async (req, res) => {
+//   const getData = req.body;
+
+//   // ------------------ Check for existing username and email ------------------
+//   const checkUserName = await User.findOne({ username: getData.username });
+//   const checkEmail = await User.findOne({ email: getData.email });
+
+//   if (checkUserName) {
+//     throw new ApiError(400, "error", "username already exists");
+//   }
+
+//   if (checkEmail) {
+//     throw new ApiError(400, "error", "email already exists");
+//   }
+
+//   // ✅ Hash the password before saving
+//   getData.password = await encryPassword(getData.password);
+
+//   // ------------------ Create and save new user ------------------
+//   const newUser = new User(getData);
+//   const data = await newUser.save();
+
+//   const payload = {
+//     _id: data._id,
+//     name: data.name,
+//     username: data.username,
+//     email: data.email,
+//   };
+
+//   // ------------------ Generate auth token ------------------
+//   const token = generateToken(payload);
+
+//   // ------------------ Remove password before sending response ------------------
+//   const userData = data.toObject();
+//   delete userData.password;
+
+//   // ------------------ Send response ------------------
+//   res.status(200).json(new ApiResponse(200, userData, token, "success"));
+// });
+
+const signup = async (req, res) => {
+  try {
+    const getData = req.body;
+    console.log("📥 Incoming signup data:", getData);
+
+    // Validate input
+    if (!getData.username || !getData.email || !getData.password || !getData.name) {
+      console.error("❌ Missing required fields");
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Check for duplicates
+    const checkUserName = await User.findOne({ username: getData.username });
+    const checkEmail = await User.findOne({ email: getData.email });
+
+    if (checkUserName) {
+      return res.status(400).json({ message: "username already exists" });
+    }
+
+    if (checkEmail) {
+      return res.status(400).json({ message: "email already exists" });
+    }
+
+    // Hash password
+    getData.password = await encryPassword(getData.password);
+    console.log("🔐 Password encrypted");
+
+    // Save user
     const newUser = new User(getData);
     const data = await newUser.save();
+    console.log("✅ User saved to DB");
 
+    // Create token
     const payload = {
       _id: data._id,
       name: data.name,
       username: data.username,
       email: data.email,
     };
-    // -------------- Generate Token ----------------
-    const token = generateToken(payload);
 
-    // ------------- Password Remove ---------
+    const token = generateToken(payload);
+    console.log("🎫 Token generated");
+
     const userData = data.toObject();
     delete userData.password;
-    // res.status(200).json({
-    //   status: 200,
-    //   statusInfo: "success",
-    //   data: data,
-    //   token: token,
-    // });
-    res.status(200).json(new ApiResponse(200, userData, token, "success"));
+
+    return res.status(200).json(new ApiResponse(200, userData, token, "success"));
+  } catch (err) {
+    console.error("🔥 Signup error caught:", err);
+    return res.status(500).json({ message: "Internal Server Error", error: err.message });
   }
-});
+};
 
 // =================== Log in ===================
 const login = asyncErrorHandler(async (req, res) => {

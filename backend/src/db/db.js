@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config(); // No need for path if you run from backend/
+
 
 const URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.DB_NAME;

@@ -4,11 +4,7 @@ import cors from "cors";
 import ApiError from "./utils/ApiError.js";
 import errorHandler from "./utils/errorHandler.js";
 import { jwtAuthMiddleware } from "./middlewares/auth.middleware.js";
-import dotenv from "dotenv";
-dotenv.config();
-
 const app = express();
-
 
 // ----------- Middlewares ----------
 app.use(
@@ -43,8 +39,6 @@ app.use("*", (req, res, next) => {
 
 // ----------------- Error handler ---------
 app.use(errorHandler);
-
-
 
 // --------- Export ----------
 export default app;

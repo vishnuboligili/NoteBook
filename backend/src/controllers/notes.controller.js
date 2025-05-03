@@ -1,8 +1,8 @@
 import { Notes } from "../models/notes.model.js";
 import ApiError from "../utils/ApiError.js";
-// import ApiResponse from "../utils/apiResponse.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncErrorHandler from "../utils/asyncErrorHandler.js";
+import textSummarizer from "../utils/textSummriser.js";
 
 // ================ Post Data =========
 const postData = asyncErrorHandler(async (req, res) => {
@@ -91,5 +91,18 @@ const findNotes = asyncErrorHandler(async (req, res) => {
     .json(new ApiResponse(200, data, null, "success", "data get successfully"));
 });
 
+// =============== Delete Data ===============
+const summarizer = asyncErrorHandler(async(req, res)=>{
+  console.log(req.body);
+  const {noteContent} = req.body;
+  const summary = await textSummarizer(noteContent);
+  if(!summary){
+    throw new ApiError(404, "fail", "Not summarized");
+  }
+  res
+    .status(200)
+    .json(new ApiResponse(200, summary, null, "success", "notes summarized successfully"));
+});
+
 // ============ Export ==========
-export { postData, getData, updateData, deleteData, findNotes };
+export { postData, getData, updateData, deleteData, findNotes, summarizer };

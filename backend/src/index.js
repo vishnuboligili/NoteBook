@@ -18,3 +18,8 @@ connectDB()
   .catch((err) => {
     console.log("MongoDB Connection Failed !!!", err);
   });
+
+  app.get("/", (req, res) => {
+    res.send("API is running");
+  });
+  
