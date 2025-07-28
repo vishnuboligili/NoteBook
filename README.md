@@ -12,7 +12,8 @@ Notebook is a secure, full-featured note-taking platform built with the MERN sta
 - File Import: Import notes seamlessly from TXT files.
 - Advanced Search & Sorting: Quickly find and organize notes with powerful search and sorting tools.
 - Checklist Functionality: Create and manage tasks within your notes using checklists.
-
+-AI-Powered Summarization: Summarize note content using Generative AI (Google Gemini API) for quick understanding.
+-Text-to-Speech Support: Convert summarized notes to speech for hands-free accessibility.
 
 ## Technologies Used
 
